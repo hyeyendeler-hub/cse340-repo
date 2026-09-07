@@ -48,6 +48,14 @@ app.get('/categories', (req, res) => {
   });
 });
 
+app.use((req, res) => {
+  res.status(404).render('404', {
+    title: 'Page Not Found',
+    navItems,
+    currentPath: req.path
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
