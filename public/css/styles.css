@@ -121,6 +121,11 @@ img {
   color: var(--muted);
 }
 
+.list-card .metadata {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+}
+
 .button {
   display: inline-block;
   margin-top: 1rem;

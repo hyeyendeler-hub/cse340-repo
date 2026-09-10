@@ -6,18 +6,11 @@
       <h1>Categories</h1>
     </div>
     <div class="category-grid">
-      <div class="category-tile">
-        <h2>Education</h2>
-      </div>
-      <div class="category-tile">
-        <h2>Health</h2>
-      </div>
-      <div class="category-tile">
-        <h2>Environment</h2>
-      </div>
-      <div class="category-tile">
-        <h2>Community</h2>
-      </div>
+      <% categories.forEach((category) => { %>
+        <div class="category-tile">
+          <h2><%= category.name %></h2>
+        </div>
+      <% }); %>
     </div>
   </div>
 </section>

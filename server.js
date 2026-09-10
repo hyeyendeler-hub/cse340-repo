@@ -1,5 +1,10 @@
 const express = require('express');
 const path = require('path');
+const {
+  getOrganizations,
+  getProjects,
+  getCategories
+} = require('./models/community-model');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,28 +29,46 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/organizations', (req, res) => {
-  res.render('organizations', {
-    title: 'Organizations',
-    navItems,
-    currentPath: '/organizations'
-  });
+app.get('/organizations', async (req, res, next) => {
+  try {
+    const organizations = await getOrganizations();
+    res.render('organizations', {
+      title: 'Organizations',
+      navItems,
+      currentPath: '/organizations',
+      organizations
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
-app.get('/projects', (req, res) => {
-  res.render('projects', {
-    title: 'Projects',
-    navItems,
-    currentPath: '/projects'
-  });
+app.get('/projects', async (req, res, next) => {
+  try {
+    const projects = await getProjects();
+    res.render('projects', {
+      title: 'Projects',
+      navItems,
+      currentPath: '/projects',
+      projects
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
-app.get('/categories', (req, res) => {
-  res.render('categories', {
-    title: 'Categories',
-    navItems,
-    currentPath: '/categories'
-  });
+app.get('/categories', async (req, res, next) => {
+  try {
+    const categories = await getCategories();
+    res.render('categories', {
+      title: 'Categories',
+      navItems,
+      currentPath: '/categories',
+      categories
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.use((req, res) => {
@@ -54,6 +77,11 @@ app.use((req, res) => {
     navItems,
     currentPath: req.path
   });
+});
+
+app.use((error, req, res, next) => {
+  console.error(error);
+  res.status(500).send('Unable to load data. Check the database connection.');
 });
 
 app.listen(port, () => {
