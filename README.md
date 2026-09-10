@@ -13,14 +13,17 @@ This project is an Express + EJS site for the W02 Database Retrieval assignment.
 
 ## Database setup
 
-The retrieval pages use PostgreSQL. Create a database, set `DATABASE_URL`, and run
-the schema and seed data from `setup.sql`:
+The retrieval pages use PostgreSQL. For a local PostgreSQL setup with no password,
+create a database and run the schema and seed data from `setup.sql`:
 
 ```powershell
-$env:DATABASE_URL = "postgresql://username:password@localhost:5432/community_hub"
-psql $env:DATABASE_URL -f setup.sql
+createdb -U postgres community_hub
+psql -U postgres -d community_hub -f setup.sql
 npm start
 ```
+
+The app defaults to `postgresql://postgres@localhost:5432/community_hub`. Set
+`DATABASE_URL` if your PostgreSQL installation uses a different connection.
 
 The `organizations`, `projects`, and `categories` pages retrieve their data from
 the database through the model functions in `models/community-model.js`.
