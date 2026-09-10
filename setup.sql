@@ -5,7 +5,10 @@ DROP TABLE IF EXISTS categories;
 CREATE TABLE organizations (
   organization_id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
-  description TEXT NOT NULL
+  description TEXT NOT NULL,
+  image_one VARCHAR(255) NOT NULL,
+  image_two VARCHAR(255) NOT NULL,
+  image_three VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE categories (
@@ -21,10 +24,10 @@ CREATE TABLE projects (
   category_id INTEGER NOT NULL REFERENCES categories(category_id) ON DELETE RESTRICT
 );
 
-INSERT INTO organizations (name, description) VALUES
-  ('Green Valley Collective', 'Focused on neighborhood sustainability, community gardens, and local environmental education.'),
-  ('Northside Learning Center', 'Provides tutoring, mentoring, and family support to strengthen educational access.'),
-  ('City Wellness Alliance', 'Promotes health awareness, screenings, and wellness initiatives for underserved populations.');
+INSERT INTO organizations (name, description, image_one, image_two, image_three) VALUES
+  ('Green Valley Collective', 'Focused on neighborhood sustainability, community gardens, and local environmental education.', '/images/organizations/green-valley-garden.svg', '/images/organizations/green-valley-river.svg', '/images/organizations/green-valley-workshop.svg'),
+  ('Northside Learning Center', 'Provides tutoring, mentoring, and family support to strengthen educational access.', '/images/organizations/northside-reading.svg', '/images/organizations/northside-mentoring.svg', '/images/organizations/northside-lab.svg'),
+  ('City Wellness Alliance', 'Promotes health awareness, screenings, and wellness initiatives for underserved populations.', '/images/organizations/city-wellness-screening.svg', '/images/organizations/city-wellness-yoga.svg', '/images/organizations/city-wellness-community.svg');
 
 INSERT INTO categories (name) VALUES
   ('Education'),

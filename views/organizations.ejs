@@ -8,6 +8,11 @@
     <div class="list-grid">
       <% organizations.forEach((organization) => { %>
         <article class="list-card">
+          <div class="organization-gallery">
+            <img src="<%= organization.image_one %>" alt="<%= organization.name %> community activity" />
+            <img src="<%= organization.image_two %>" alt="<%= organization.name %> community activity" />
+            <img src="<%= organization.image_three %>" alt="<%= organization.name %> community activity" />
+          </div>
           <h2><%= organization.name %></h2>
           <p><%= organization.description %></p>
         </article>

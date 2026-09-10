@@ -2,7 +2,9 @@ const pool = require('../database');
 
 async function getOrganizations() {
   const { rows } = await pool.query(
-    'SELECT organization_id, name, description FROM organizations ORDER BY name'
+    `SELECT organization_id, name, description, image_one, image_two, image_three
+     FROM organizations
+     ORDER BY name`
   );
   return rows;
 }

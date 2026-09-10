@@ -175,6 +175,20 @@ img {
   box-shadow: var(--shadow);
 }
 
+.organization-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: -0.25rem -0.25rem 1rem;
+}
+
+.organization-gallery img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 .category-tile {
   display: flex;
   align-items: center;
