@@ -1,13 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
-const {
-  getOrganizations,
-  getProjects,
-  getCategories
-} = require('./models/community-model');
+const { getAllOrganizations } = require('./models/organizations');
+const { getProjects } = require('./models/community-model');
+const { getCategories } = require('./models/categories');
+const { testConnection } = require('./models/db');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +32,7 @@ app.get('/', (req, res) => {
 
 app.get('/organizations', async (req, res, next) => {
   try {
-    const organizations = await getOrganizations();
+    const organizations = await getAllOrganizations();
     res.render('organizations', {
       title: 'Organizations',
       navItems,
@@ -84,6 +85,11 @@ app.use((error, req, res, next) => {
   res.status(500).send('Unable to load data. Check the database connection.');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.listen(port, async () => {
+  try {
+    await testConnection();
+    console.log(`Server running on http://localhost:${port}`);
+  } catch (error) {
+    console.error('Error connecting to the database:', error.message);
+  }
 });

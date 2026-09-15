@@ -42,3 +42,11 @@ INSERT INTO projects (name, description, organization_id, category_id) VALUES
   ('Family Learning Lab', 'Free workshops help families build practical learning routines at home.', 2, 1),
   ('Community Food Exchange', 'Residents share resources, reduce waste, and improve access to healthy food options.', 3, 4),
   ('Wellness Screening Days', 'Local health partners provide accessible screenings and wellness information.', 3, 2);
+
+
+  -- projects for the "Community" category
+  INSERT INTO categories (name) VALUES
+  ('Housing'),
+  ('Food Security'),
+  ('Arts and Culture'),
+  ('Youth Development');

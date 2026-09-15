@@ -6,12 +6,11 @@
       <h1>Organizations</h1>
     </div>
     <div class="list-grid">
-      <% organizations.forEach((organization) => { %>
+      <% const organizationLogos = ['/images/brightfuture-logo.png', '/images/greenharvest-logo.png', '/images/unityserve-logo.png']; %>
+      <% organizations.forEach((organization, index) => { %>
         <article class="list-card">
           <div class="organization-gallery">
-            <img src="<%= organization.image_one %>" alt="<%= organization.name %> community activity" />
-            <img src="<%= organization.image_two %>" alt="<%= organization.name %> community activity" />
-            <img src="<%= organization.image_three %>" alt="<%= organization.name %> community activity" />
+            <img class="organization-logo" src="<%= organizationLogos[index % organizationLogos.length] %>" alt="<%= organization.name %> logo" />
           </div>
           <h2><%= organization.name %></h2>
           <p><%= organization.description %></p>

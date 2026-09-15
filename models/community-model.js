@@ -1,39 +1,31 @@
-const pool = require('../database');
+const db = require('./db');
 
 async function getOrganizations() {
-  const { rows } = await pool.query(
-    `SELECT organization_id, name, description, image_one, image_two, image_three
-     FROM organizations
-     ORDER BY name`
-  );
-  return rows;
+  const result = await db.query(`
+    SELECT organization_id, name, description, image_one, image_two, image_three
+    FROM organizations
+    ORDER BY name
+  `);
+  return result.rows;
 }
 
 async function getProjects() {
-  const { rows } = await pool.query(`
+  const result = await db.query(`
     SELECT
-      p.project_id,
-      p.name,
-      p.description,
-      o.name AS organization_name,
-      c.name AS category_name
-    FROM projects p
-    JOIN organizations o ON o.organization_id = p.organization_id
-    JOIN categories c ON c.category_id = p.category_id
-    ORDER BY p.name
+      projects.project_id,
+      projects.name,
+      projects.description,
+      organizations.name AS organization_name,
+      categories.name AS category_name
+    FROM projects
+    JOIN organizations ON organizations.organization_id = projects.organization_id
+    JOIN categories ON categories.category_id = projects.category_id
+    ORDER BY projects.name
   `);
-  return rows;
-}
-
-async function getCategories() {
-  const { rows } = await pool.query(
-    'SELECT category_id, name FROM categories ORDER BY name'
-  );
-  return rows;
+  return result.rows;
 }
 
 module.exports = {
   getOrganizations,
-  getProjects,
-  getCategories
+  getProjects
 };
