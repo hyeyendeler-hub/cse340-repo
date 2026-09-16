@@ -2,16 +2,16 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
-const { getAllOrganizations } = require('./models/organizations');
-const { getProjects } = require('./models/community-model');
-const { getCategories } = require('./models/categories');
-const { testConnection } = require('./models/db');
+const { getAllOrganizations } = require('./src/models/organizations');
+const { getProjects } = require('./src/models/projects');
+const { getCategories } = require('./src/models/categories');
+const { testConnection } = require('./src/models/db');
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 

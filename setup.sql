@@ -25,15 +25,19 @@ CREATE TABLE projects (
 );
 
 INSERT INTO organizations (name, description, image_one, image_two, image_three) VALUES
-  ('Green Valley Collective', 'Focused on neighborhood sustainability, community gardens, and local environmental education.', '/images/organizations/green-valley-garden.svg', '/images/organizations/green-valley-river.svg', '/images/organizations/green-valley-workshop.svg'),
-  ('Northside Learning Center', 'Provides tutoring, mentoring, and family support to strengthen educational access.', '/images/organizations/northside-reading.svg', '/images/organizations/northside-mentoring.svg', '/images/organizations/northside-lab.svg'),
-  ('City Wellness Alliance', 'Promotes health awareness, screenings, and wellness initiatives for underserved populations.', '/images/organizations/city-wellness-screening.svg', '/images/organizations/city-wellness-yoga.svg', '/images/organizations/city-wellness-community.svg');
+  ('Green Valley Collective', 'Focused on neighborhood sustainability, community gardens, and local environmental education.', '/images/greenharvest-logo.png', '/images/greenharvest-logo.png', '/images/greenharvest-logo.png'),
+  ('Northside Learning Center', 'Provides tutoring, mentoring, and family support to strengthen educational access.', '/images/brightfuture-logo.png', '/images/brightfuture-logo.png', '/images/brightfuture-logo.png'),
+  ('City Wellness Alliance', 'Promotes health awareness, screenings, and wellness initiatives for underserved populations.', '/images/unityserve-logo.png', '/images/unityserve-logo.png', '/images/unityserve-logo.png');
 
 INSERT INTO categories (name) VALUES
   ('Education'),
   ('Health'),
   ('Environment'),
-  ('Community');
+   ('Community'),
+  ('Housing'),
+  ('Food Security'),
+  ('Arts and Culture'),
+  ('Youth Development');
 
 INSERT INTO projects (name, description, organization_id, category_id) VALUES
   ('River Cleanup Drive', 'Volunteers and local partners are restoring a public riverfront through cleanups and education.', 1, 3),
@@ -42,11 +46,3 @@ INSERT INTO projects (name, description, organization_id, category_id) VALUES
   ('Family Learning Lab', 'Free workshops help families build practical learning routines at home.', 2, 1),
   ('Community Food Exchange', 'Residents share resources, reduce waste, and improve access to healthy food options.', 3, 4),
   ('Wellness Screening Days', 'Local health partners provide accessible screenings and wellness information.', 3, 2);
-
-
-  -- projects for the "Community" category
-  INSERT INTO categories (name) VALUES
-  ('Housing'),
-  ('Food Security'),
-  ('Arts and Culture'),
-  ('Youth Development');

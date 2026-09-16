@@ -1,15 +1,6 @@
 const db = require('./db');
 
-async function getOrganizations() {
-  const result = await db.query(`
-    SELECT organization_id, name, description, image_one, image_two, image_three
-    FROM organizations
-    ORDER BY name
-  `);
-  return result.rows;
-}
-
-async function getProjects() {
+const getProjects = async () => {
   const result = await db.query(`
     SELECT
       projects.project_id,
@@ -22,10 +13,8 @@ async function getProjects() {
     JOIN categories ON categories.category_id = projects.category_id
     ORDER BY projects.name
   `);
-  return result.rows;
-}
 
-module.exports = {
-  getOrganizations,
-  getProjects
+  return result.rows;
 };
+
+module.exports = { getProjects };

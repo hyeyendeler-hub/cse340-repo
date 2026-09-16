@@ -24,9 +24,12 @@ npm start
 
 The app defaults to `postgresql://postgres@localhost:5432/community_hub`. Set
 `DATABASE_URL` if your PostgreSQL installation uses a different connection.
+Hosted database URLs automatically use SSL. Set `DB_SSL=false` to disable it or
+`DB_SSL=true` to enable it explicitly.
 
 The `organizations`, `projects`, and `categories` pages retrieve their data from
-the database through the model functions in `models/community-model.js`.
+the database through the model functions in `src/models` and render the EJS
+templates in `src/views`.
 
 ## Deployment
 

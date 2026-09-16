@@ -1,6 +1,6 @@
 const db = require('./db');
 
-async function getAllOrganizations() {
+const getAllOrganizations = async () => {
   const result = await db.query(`
     SELECT organization_id, name, description, image_one, image_two, image_three
     FROM organizations
@@ -8,6 +8,6 @@ async function getAllOrganizations() {
   `);
 
   return result.rows;
-}
+};
 
 module.exports = { getAllOrganizations };
