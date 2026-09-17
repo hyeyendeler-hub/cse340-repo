@@ -1,95 +1,60 @@
-require('dotenv').config();
+import 'dotenv/config';
+import express from 'express';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { testConnection } from './src/models/db.js';
+import { getAllOrganizations } from './src/models/organizations.js';
 
-const express = require('express');
-const path = require('path');
-const { getAllOrganizations } = require('./src/models/organizations');
-const { getProjects } = require('./src/models/projects');
-const { getCategories } = require('./src/models/categories');
-const { testConnection } = require('./src/models/db');
+// Define the application environment
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
+
+// Define the port number the server will listen on
+const PORT = process.env.PORT || 3000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 8080;
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'src/views'));
+/**
+  * Configure Express middleware
+  */
 
+// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Organizations', href: '/organizations' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Categories', href: '/categories' }
-];
+// Set EJS as the templating engine
+app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  res.render('home', {
-    title: 'Home',
-    navItems,
-    currentPath: '/'
-  });
+// Tell Express where to find your templates
+app.set('views', path.join(__dirname, 'src/views'));
+
+/**
+ * Routes
+ */
+app.get('/', async (req, res) => {
+    const title = 'Home';
+    res.render('home', { title });
 });
 
-app.get('/organizations', async (req, res, next) => {
-  try {
+app.get('/organizations', async (req, res) => {
     const organizations = await getAllOrganizations();
-    res.render('organizations', {
-      title: 'Organizations',
-      navItems,
-      currentPath: '/organizations',
-      organizations
-    });
-  } catch (error) {
-    next(error);
-  }
+    const title = 'Our Partner Organizations';
+
+    res.render('organizations', { title, organizations });
 });
 
-app.get('/projects', async (req, res, next) => {
-  try {
-    const projects = await getProjects();
-    res.render('projects', {
-      title: 'Projects',
-      navItems,
-      currentPath: '/projects',
-      projects
-    });
-  } catch (error) {
-    next(error);
-  }
+app.get('/projects', async (req, res) => {
+    const title = 'Service Projects';
+    res.render('projects', { title });
 });
 
-app.get('/categories', async (req, res, next) => {
-  try {
-    const categories = await getCategories();
-    res.render('categories', {
-      title: 'Categories',
-      navItems,
-      currentPath: '/categories',
-      categories
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-app.use((req, res) => {
-  res.status(404).render('404', {
-    title: 'Page Not Found',
-    navItems,
-    currentPath: req.path
-  });
-});
-
-app.use((error, req, res, next) => {
-  console.error(error);
-  res.status(500).send('Unable to load data. Check the database connection.');
-});
-
-app.listen(port, async () => {
+app.listen(PORT, async () => {
   try {
     await testConnection();
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
   } catch (error) {
-    console.error('Error connecting to the database:', error.message);
+    console.error('Error connecting to the database:', error);
   }
 });

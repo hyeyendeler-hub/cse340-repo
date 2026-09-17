@@ -1,24 +1,14 @@
 <%- include('partials/header') %>
-<section class="content-section">
-  <div class="container">
-    <div class="page-header">
-      <p class="eyebrow">Directory</p>
-      <h1>Organizations</h1>
-    </div>
-    <div class="list-grid">
-      <% const fallbackImages = ['/images/greenharvest-logo.png', '/images/brightfuture-logo.png', '/images/unityserve-logo.png']; %>
-      <% organizations.forEach((organization, organizationIndex) => { %>
-        <article class="list-card">
-          <div class="organization-gallery">
-            <% [organization.image_one, organization.image_two, organization.image_three].forEach((image, imageIndex) => { %>
-              <img class="organization-logo" src="<%= image %>" onerror="this.onerror=null; this.src='<%= fallbackImages[(organizationIndex + imageIndex) % fallbackImages.length] %>';" alt="<%= imageIndex === 0 ? organization.name + ' logo' : '' %>" />
+    <main>
+        <h1><%= title %></h1>
+        
+        <p>Here are a few of our partner organizations:</p>
+        <ul>
+
+            <% organizations.forEach(organization => { %>
+                <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><strong><%= organization.name %></strong>: <%= organization.description %> - <%= organization.contact_email %></li>
             <% }); %>
-          </div>
-          <h2><%= organization.name %></h2>
-          <p><%= organization.description %></p>
-        </article>
-      <% }); %>
-    </div>
-  </div>
-</section>
+        </ul>
+    </main>
+
 <%- include('partials/footer') %>

@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: community-hub
-    env: node
-    plan: free
-    buildCommand: npm install
-    startCommand: npm start
-    autoDeploy: true

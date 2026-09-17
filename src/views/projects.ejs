@@ -1,20 +1,14 @@
 <%- include('partials/header') %>
-<section class="content-section">
-  <div class="container">
-    <div class="page-header">
-      <p class="eyebrow">Current Work</p>
-      <h1>Projects</h1>
-    </div>
-    <div class="list-grid">
-      <% projects.forEach((project) => { %>
-        <article class="list-card">
-          <h2><%= project.name %></h2>
-          <p><%= project.description %></p>
-          <p class="metadata"><strong>Organization:</strong> <%= project.organization_name %></p>
-          <p class="metadata"><strong>Category:</strong> <%= project.category_name %></p>
-        </article>
-      <% }); %>
-    </div>
-  </div>
-</section>
+
+<main>
+    <h1><%= title %></h1>
+
+    <h2>Upcoming Service Projects</h2>
+    <ul>
+        <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
+        <li>Food Drive - Help collect and distribute food to those in need.</li>
+        <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
+    </ul>
+</main>
+
 <%- include('partials/footer') %>

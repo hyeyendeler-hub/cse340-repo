@@ -1,12 +1,29 @@
 {
+  "name": "rashidi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "nodemon",
+    "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyeyendeler-hub/cse340-repo.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/hyeyendeler-hub/cse340-repo/issues"
+  },
+  "homepage": "https://github.com/hyeyendeler-hub/cse340-repo#readme",
   "dependencies": {
-    "dotenv": "^16.6.1",
+    "dotenv": "^16.4.5",
     "ejs": "^6.0.1",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
