@@ -5,8 +5,8 @@
         <% if (organizations && organizations.length > 0) { %>
             <p>Here are a few of our partner organizations:</p>
             <ul>
-                <% organizations.forEach(organization => { %>
-                    <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><strong><%= organization.name %></strong>: <%= organization.description %> - <%= organization.contact_email %></li>
+<% organizations.forEach(organization => { %>
+                    <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>: <%= organization.contact_email %></li>
                 <% }); %>
             </ul>
         <% } else { %>
