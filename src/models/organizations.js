@@ -1,6 +1,6 @@
 import db from './db.js';
 
-const ensureOrganizationTable = async () => {
+const seedOrganizations = async () => {
     const createTableQuery = `
         CREATE TABLE IF NOT EXISTS public.organization (
             organization_id SERIAL PRIMARY KEY,
@@ -31,8 +31,6 @@ const ensureOrganizationTable = async () => {
 
 const getAllOrganizations = async () => {
     try {
-        await ensureOrganizationTable();
-
         const query = `
             SELECT organization_id, name, description, contact_email, logo_filename
             FROM public.organization
@@ -47,4 +45,4 @@ const getAllOrganizations = async () => {
     }
 };
 
-export { getAllOrganizations };
+export { getAllOrganizations, seedOrganizations };

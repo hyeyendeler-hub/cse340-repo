@@ -70,6 +70,10 @@ if (process.env.NODE_ENV === 'development' && process.env.ENABLE_SQL_LOGGING ===
 
         async close() {
             await pool.end();
+        },
+
+        async end() {
+            await pool.end();
         }
     };
 } else {
