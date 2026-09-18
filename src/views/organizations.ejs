@@ -4,11 +4,18 @@
 
         <% if (organizations && organizations.length > 0) { %>
             <p>Here are a few of our partner organizations:</p>
-            <ul>
-<% organizations.forEach(organization => { %>
-                    <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>: <%= organization.contact_email %></li>
+            <div class="card-grid">
+                <% organizations.forEach(organization => { %>
+                    <article class="data-card organization-card">
+                        <div class="card-header">
+                            <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                            <h3><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a></h3>
+                        </div>
+                        <p><%= organization.description %></p>
+                        <p><strong>Email:</strong> <%= organization.contact_email %></p>
+                    </article>
                 <% }); %>
-            </ul>
+            </div>
         <% } else { %>
             <p>No partner organizations are available yet.</p>
         <% } %>

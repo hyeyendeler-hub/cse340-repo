@@ -4,11 +4,16 @@
     <h1><%= title %></h1>
 
     <h2>Upcoming Service Projects</h2>
-    <ul>
+    <div class="card-grid">
         <% projects.forEach(project => { %>
-            <li><a href="/project/<%= project.project_id %>"><%= project.title %></a> - <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></li>
+            <article class="data-card project-card">
+                <h3><a href="/project/<%= project.project_id %>"><%= project.title %></a></h3>
+                <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+                <p><strong>Location:</strong> <%= project.location %></p>
+                <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString() %></p>
+            </article>
         <% }) %>
-    </ul>
+    </div>
 </main>
 
 <%- include('partials/footer') %>

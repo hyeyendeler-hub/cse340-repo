@@ -15,6 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.locals.NODE_ENV = NODE_ENV;
 
 /**
   * Configure Express middleware
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 // Middleware to make NODE_ENV available to all templates
 app.use((req, res, next) => {
     res.locals.NODE_ENV = NODE_ENV;
+    res.locals.currentYear = new Date().getFullYear();
     next();
 });
 
