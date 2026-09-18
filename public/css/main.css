@@ -5,7 +5,7 @@
 html, body {
     margin: 0;
     min-height: 100%;
-    background-color: #dfeeff;
+    background-color: #b9d7e9;
     font-family: Arial, sans-serif;
     color: #1f2a37;
 }
@@ -157,4 +157,37 @@ img {
     justify-content: center;
     min-height: 120px;
     text-align: center;
+}
+
+.detail-shell {
+    background: #ffffff;
+    border: 1px solid #cfe0ff;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 6px 18px rgba(31, 42, 55, 0.08);
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.detail-header img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 12px;
+    padding: 10px;
+    background: #f5f8ff;
+    margin: 0;
+}
+
+.detail-section {
+    margin-top: 26px;
+}
+
+.detail-shell p {
+    line-height: 1.6;
 }

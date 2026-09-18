@@ -1,17 +1,28 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
+    <article class="detail-shell">
+        <div class="detail-header">
+            <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
+            <div>
+                <h1><%= title %></h1>
+                <h2><%= organizationDetails.name %></h2>
+            </div>
+        </div>
 
-    <h2><%= organizationDetails.name %></h2>
-    <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
+        <p><%= organizationDetails.description %></p>
 
-    <p>Description: <%= organizationDetails.description %></p>
-
-    <h3>Service Projects</h3>
-    <ul>
-        <% projects.forEach(project => { %>
-            <li><a href="/project/<%= project.project_id %>"><%= project.title %></a></li>
-        <% }) %>
-    </ul>
+        <div class="detail-section">
+            <h3>Service Projects</h3>
+            <div class="card-grid">
+                <% projects.forEach(project => { %>
+                    <article class="data-card project-card">
+                        <h3><a href="/project/<%= project.project_id %>"><%= project.title %></a></h3>
+                        <p><strong>Location:</strong> <%= project.location %></p>
+                        <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString() %></p>
+                    </article>
+                <% }) %>
+            </div>
+        </div>
+    </article>
 </main>
 <%- include('partials/footer') %>

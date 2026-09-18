@@ -1,14 +1,21 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
+    <article class="detail-shell">
+        <h1><%= title %></h1>
+        <h2><%= categoryDetails.category_name %></h2>
 
-    <h2><%= categoryDetails.category_name %></h2>
-
-    <h3>Service Projects</h3>
-    <ul>
-        <% projects.forEach(project => { %>
-            <li><a href="/project/<%= project.project_id %>"><%= project.title %></a></li>
-        <% }) %>
-    </ul>
+        <div class="detail-section">
+            <h3>Service Projects</h3>
+            <div class="card-grid">
+                <% projects.forEach(project => { %>
+                    <article class="data-card project-card">
+                        <h3><a href="/project/<%= project.project_id %>"><%= project.title %></a></h3>
+                        <p><strong>Location:</strong> <%= project.location %></p>
+                        <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString() %></p>
+                    </article>
+                <% }) %>
+            </div>
+        </div>
+    </article>
 </main>
 <%- include('partials/footer') %>
