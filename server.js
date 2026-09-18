@@ -38,10 +38,15 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/organizations', async (req, res) => {
-    const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
 
-    res.render('organizations', { title, organizations });
+    try {
+        const organizations = await getAllOrganizations();
+        res.render('organizations', { title, organizations });
+    } catch (error) {
+        console.error('Failed to load organizations page:', error.message);
+        res.render('organizations', { title, organizations: [] });
+    }
 });
 
 app.get('/projects', async (req, res) => {
