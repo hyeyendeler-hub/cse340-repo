@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -16,10 +18,26 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.locals.NODE_ENV = NODE_ENV;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 /**
-  * Configure Express middleware
-  */
+ * Configure Express middleware
+ */
+
+// Parse POST request data before routes
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Set up session management before flash messages
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+}));
+
+// Use flash message middleware after sessions
+app.use(flash);
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -77,11 +95,11 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, async () => {
-  try {
-    await testConnection();
-    console.log(`Server is running at http://127.0.0.1:${PORT}`);
-    console.log(`Environment: ${NODE_ENV}`);
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
-  }
+    try {
+        await testConnection();
+        console.log(`Server is running at http://127.0.0.1:${PORT}`);
+        console.log(`Environment: ${NODE_ENV}`);
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+    }
 });
