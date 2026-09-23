@@ -6,6 +6,9 @@ import {
 } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
+import {
+    getCategoriesForProject
+} from '../models/categories.js';
 
 // Define any controller functions
 const showProjectsPage = async (req, res) => {
@@ -28,7 +31,11 @@ const showProjectDetailsPage = async (req, res, next) => {
     const categories = await getCategoriesForProject(projectId);
     const title = 'Project Details';
 
-    res.render('project', { title, projectDetails, categories });
+    res.render('project', {
+        title,
+        projectDetails,
+        categories
+    });
 };
 
 const projectValidation = [

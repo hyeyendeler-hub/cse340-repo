@@ -5,6 +5,7 @@ import {
     showOrganizationDetailsPage,
     showNewOrganizationForm,
     processNewOrganizationForm,
+    showEditOrganizationForm,
     organizationValidation,
     processEditOrganizationForm
 } from './controllers/organizations.js';
@@ -56,5 +57,16 @@ router.post(
 
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+
+router.get(
+    '/edit-organization/:id',
+    showEditOrganizationForm
+);
+
+router.post(
+    '/edit-organization/:id',
+    organizationValidation,
+    processEditOrganizationForm
+);
 
 export default router;

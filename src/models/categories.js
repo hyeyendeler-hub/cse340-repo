@@ -78,4 +78,11 @@ const getCategoriesByServiceProjectId = async (projectId) => {
 };
 
 // Export the model functions
-export { getAllCategories, getCategoryById, getCategoriesForProject, assignCategoryToProject, updateCategoryAssignments, getCategoriesByServiceProjectId }
+export {
+    getAllCategories,
+    getCategoryById,
+    getCategoriesForProject,
+    assignCategoryToProject,
+    updateCategoryAssignments,
+    getCategoriesByServiceProjectId
+};

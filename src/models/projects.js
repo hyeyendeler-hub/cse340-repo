@@ -117,4 +117,10 @@ const createProject = async (
 }
 
 // Export the model functions
-export { getAllProjects, getProjectDetails, getProjectsByOrganizationId, getProjectsForCategory, createProject }
+export {
+    getAllProjects,
+    getProjectDetails,
+    getProjectsByOrganizationId,
+    getProjectsForCategory,
+    createProject
+};

@@ -1,10 +1,12 @@
 // Import any needed model functions
 import {
     getAllCategories,
-    getCategoriesByServiceProjectId,
-    updateCategoryAssignments
+    getCategoryById
 } from '../models/categories.js';
-import { getProjectDetails } from '../models/projects.js';
+
+import {
+    getProjectsForCategory
+} from '../models/projects.js';
 
 // Define any controller functions
 const showCategoriesPage = async (req, res) => {
@@ -15,19 +17,27 @@ const showCategoriesPage = async (req, res) => {
 };
 
 const showCategoryDetailsPage = async (req, res, next) => {
-    const categoryId = req.params.id;
-    const categoryDetails = await getCategoryById(categoryId);
+    try {
+        const categoryId = req.params.id;
 
-    if (!categoryDetails) {
-        const err = new Error('Category Not Found');
-        err.status = 404;
-        return next(err);
+        const categoryDetails = await getCategoryById(categoryId);
+
+        if (!categoryDetails) {
+            const err = new Error('Category not found');
+            err.status = 404;
+            return next(err);
+        }
+
+        const projects = await getProjectsForCategory(categoryId);
+
+        res.render('category', {
+            title: categoryDetails.category_name,
+            categoryDetails,
+            projects
+        });
+    } catch (error) {
+        next(error);
     }
-
-    const projects = await getProjectsForCategory(categoryId);
-    const title = 'Category Details';
-
-    res.render('category', { title, categoryDetails, projects });
 };
 
 const showAssignCategoriesForm = async (req, res, next) => {

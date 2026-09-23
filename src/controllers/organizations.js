@@ -108,12 +108,34 @@ const processEditOrganizationForm = async (req, res) => {
     res.redirect(`/organization/${organizationId}`);
 };
 
+const showEditOrganizationForm = async (req, res, next) => {
+    try {
+        const organizationId = req.params.id;
+        const organizationDetails =
+            await getOrganizationDetails(organizationId);
+
+        if (!organizationDetails) {
+            const err = new Error('Organization not found');
+            err.status = 404;
+            return next(err);
+        }
+
+        res.render('edit-organization', {
+            title: 'Edit Organization',
+            organizationDetails
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 // Export any controller functions
 export {
     showOrganizationsPage,
     showOrganizationDetailsPage,
     showNewOrganizationForm,
     processNewOrganizationForm,
+    showEditOrganizationForm,
     organizationValidation,
     processEditOrganizationForm
 };

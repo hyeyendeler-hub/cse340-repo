@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
     <main>
         <h1><%= title %></h1>
-
+<p><a href="/new-organization">Add a new organization</a></p>
         <% if (organizations && organizations.length > 0) { %>
             <p>Here are a few of our partner organizations:</p>
             <div class="card-grid">
@@ -22,4 +22,3 @@
     </main>
 
 <%- include('partials/footer') %>
-<p><a href="/new-organization">Add a new organization</a></p>
