@@ -94,11 +94,10 @@ app.use((err, req, res, next) => {
     res.status(status).render(`errors/${template}`, context);
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT, '0.0.0.0', async () => {
     try {
         await testConnection();
-        console.log(`Server is running at http://127.0.0.1:${PORT}`);
-        console.log(`Environment: ${NODE_ENV}`);
+        console.log(`Server is running on port ${PORT}`);
     } catch (error) {
         console.error('Error connecting to the database:', error);
     }
