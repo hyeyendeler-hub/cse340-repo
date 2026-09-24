@@ -31,28 +31,32 @@ const getOrganizationDetails = async (organizationId) => {
 };
 
 const updateOrganization = async (
-    id,
+    organizationId,
     name,
     description,
     contactEmail,
     logoFilename
 ) => {
-    const sql = `
-        UPDATE organizations
+    const query = `
+        UPDATE organization
         SET name = $1,
             description = $2,
             contact_email = $3,
             logo_filename = $4
-        WHERE id = $5
+        WHERE organization_id = $5
+        RETURNING organization_id;
     `;
 
-    return db.query(sql, [
+    const values = [
         name,
         description,
         contactEmail,
         logoFilename,
-        id
-    ]);
+        organizationId
+    ];
+
+    const result = await db.query(query, values);
+     return result.rows[0];
 };
 
 // Export the model functions

@@ -20,7 +20,7 @@ const app = express();
 app.locals.NODE_ENV = NODE_ENV;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
-/**
+/**s
  * Configure Express middleware
  */
 
