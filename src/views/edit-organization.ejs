@@ -10,6 +10,7 @@
         id="name"
         name="name"
         value="<%= organizationDetails.name %>"
+        minlength="3"
         maxlength="150"
         required
       />
@@ -48,8 +49,6 @@
         value="<%= organizationDetails.logo_filename %>"
       />
     </div>
-
-
     <button type="submit">Update Organization</button>
   </form>
 

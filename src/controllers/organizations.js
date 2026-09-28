@@ -28,7 +28,12 @@ const organizationValidation = [
         .notEmpty()
         .withMessage('Contact email is required')
         .isEmail()
-        .withMessage('Please provide a valid email address')
+        .withMessage('Please provide a valid email address'),
+    body('logoFilename')
+        .optional({ values: 'falsy' })
+        .trim()
+        .isLength({ max: 255 })
+        .withMessage('Logo filename cannot exceed 255 characters')
 ];
 
 // Define any controller functions
@@ -111,6 +116,13 @@ const processEditOrganizationForm = async (req, res) => {
 const showEditOrganizationForm = async (req, res, next) => {
     try {
         const organizationId = req.params.id;
+
+        if (!/^\d+$/.test(organizationId) || Number(organizationId) < 1) {
+            const err = new Error('Organization Not Found');
+            err.status = 404;
+            return next(err);
+        }
+
         const organizationDetails =
             await getOrganizationDetails(organizationId);
 
@@ -119,11 +131,10 @@ const showEditOrganizationForm = async (req, res, next) => {
             err.status = 404;
             return next(err);
         }
+         
+       const title = 'Edit Organization';
+    res.render('edit-organization', { title, organizationDetails });
 
-        res.render('edit-organization', {
-            title: 'Edit Organization',
-            organizationDetails
-        });
     } catch (error) {
         next(error);
     }

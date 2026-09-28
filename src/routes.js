@@ -9,10 +9,23 @@ import {
     organizationValidation,
     processEditOrganizationForm
 } from './controllers/organizations.js';
-import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation } from './controllers/projects.js';
+import {
+    showProjectsPage,
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
+    projectValidation
+} from './controllers/projects.js';
 import {
     showCategoriesPage,
     showCategoryDetailsPage,
+    showNewCategoryForm,
+    processNewCategoryForm,
+    showEditCategoryForm,
+    processEditCategoryForm,
+    categoryValidation,
     showAssignCategoriesForm,
     processAssignCategoriesForm
 } from './controllers/categories.js';
@@ -28,9 +41,8 @@ router.get('/project/:id', showProjectDetailsPage);
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
 router.get('/new-organization', showNewOrganizationForm);
+router.get('/edit-organization/:id', showEditOrganizationForm);
 router.get('/test-error', testErrorPage);
-router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
-
 router.post(
     '/new-organization',
     organizationValidation,
@@ -43,6 +55,27 @@ router.post(
     '/new-project',
     projectValidation,
     processNewProjectForm
+);
+
+router.get('/edit-project/:id', showEditProjectForm);
+router.post(
+    '/edit-project/:id',
+    projectValidation,
+    processEditProjectForm
+);
+
+router.get('/new-category', showNewCategoryForm);
+router.post(
+    '/new-category',
+    categoryValidation,
+    processNewCategoryForm
+);
+
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post(
+    '/edit-category/:id',
+    categoryValidation,
+    processEditCategoryForm
 );
 
 router.get(
@@ -58,13 +91,15 @@ router.post(
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
-router.get(
-    '/edit-organization/:id',
-    showEditOrganizationForm
-);
-
 router.post(
     '/edit-organization/:id',
+    organizationValidation,
+    processEditOrganizationForm
+);
+
+router.get('/edit-profile/:id', showEditOrganizationForm);
+router.post(
+    '/edit-profile/:id',
     organizationValidation,
     processEditOrganizationForm
 );

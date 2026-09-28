@@ -2,7 +2,8 @@
 import {
     getAllProjects,
     getProjectDetails,
-    createProject
+    createProject,
+    updateProject
 } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
@@ -63,7 +64,7 @@ const projectValidation = [
 
     body('organizationId')
         .notEmpty().withMessage('Organization is required')
-        .isInt().withMessage('Please select a valid organization')
+        .isInt({ min: 1 }).withMessage('Please select a valid organization')
 ];
 
 const showNewProjectForm = async (req, res) => {
@@ -73,6 +74,60 @@ const showNewProjectForm = async (req, res) => {
         title: 'Add New Service Project',
         organizations
     });
+};
+
+const showEditProjectForm = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+        const projectDetails = await getProjectDetails(projectId);
+
+        if (!projectDetails) {
+            const err = new Error('Project Not Found');
+            err.status = 404;
+            return next(err);
+        }
+
+        const organizations = await getAllOrganizations();
+        res.render('edit-project', {
+            title: 'Edit Service Project',
+            projectDetails,
+            organizations
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const processEditProjectForm = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => req.flash('error', error.msg));
+        return res.redirect(`/edit-project/${req.params.id}`);
+    }
+
+    try {
+        const { title, description, location, date, organizationId } = req.body;
+        const updatedProject = await updateProject(
+            req.params.id,
+            title,
+            description,
+            location,
+            date,
+            organizationId
+        );
+
+        if (!updatedProject) {
+            const err = new Error('Project Not Found');
+            err.status = 404;
+            return next(err);
+        }
+
+        req.flash('success', 'Service project updated successfully!');
+        res.redirect(`/project/${req.params.id}`);
+    } catch (error) {
+        next(error);
+    }
 };
 
 const processNewProjectForm = async (req, res) => {
@@ -107,4 +162,12 @@ const processNewProjectForm = async (req, res) => {
 };
 
 // Export any controller functions
-export { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation };
+export {
+    showProjectsPage,
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
+    projectValidation
+};
