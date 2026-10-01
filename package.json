@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/hyeyendeler-hub/cse340-repo#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.6.1",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
