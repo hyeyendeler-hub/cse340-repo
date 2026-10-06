@@ -9,6 +9,7 @@ import {
     organizationValidation,
     processEditOrganizationForm
 } from './controllers/organizations.js';
+
 import {
     showProjectsPage,
     showProjectDetailsPage,
@@ -18,6 +19,7 @@ import {
     processEditProjectForm,
     projectValidation
 } from './controllers/projects.js';
+
 import {
     showCategoriesPage,
     showCategoryDetailsPage,
@@ -29,6 +31,7 @@ import {
     showAssignCategoriesForm,
     processAssignCategoriesForm
 } from './controllers/categories.js';
+
 import { testErrorPage } from './controllers/errors.js';
 import {
     showUserRegistrationForm,
@@ -40,6 +43,11 @@ import {
     showDashboard,
     requireRole
 } from './controllers/users.js';
+
+import {
+    addVolunteer,
+    removeVolunteer
+} from './controllers/volunteers.js';
 
 const router = express.Router();
 
@@ -130,6 +138,18 @@ router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
+
+router.get(
+    '/volunteer/:project_id',
+    requireLogin,
+    addVolunteer
+);
+
+router.get(
+    '/remove-volunteer/:project_id',
+    requireLogin,
+    removeVolunteer
+);
 
 // Use the existing handler names and paths from your file.
 router.post(
