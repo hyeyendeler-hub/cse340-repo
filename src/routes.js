@@ -41,9 +41,9 @@ import {
     processLogout,
     requireLogin,
     showDashboard,
+    showUsers,
     requireRole
 } from './controllers/users.js';
-
 import {
     addVolunteer,
     removeVolunteer
@@ -138,7 +138,7 @@ router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
-
+router.get('/users', requireRole('admin'), showUsers);
 router.get(
     '/volunteer/:project_id',
     requireLogin,

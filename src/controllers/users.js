@@ -1,5 +1,9 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser } from '../models/users.js';
+import {
+    createUser,
+    authenticateUser,
+    getUsers
+} from '../models/users.js';
 import { getVolunteerProjects } from '../models/volunteers.js';
 
 const showUserRegistrationForm = async (req, res) => {
@@ -97,6 +101,20 @@ const requireRole = (role) => (req, res, next) => {
     next();
 };
 
+const showUsers = async (req, res, next) => {
+    try {
+        const users = await getUsers();
+
+        res.render('users', {
+            title: 'Users',
+            users
+        });
+    } catch (error) {
+        console.error('Error loading users:', error);
+        next(error);
+    }
+};
+
 const showDashboard = async (req, res, next) => {
     try {
         const volunteerProjects = await getVolunteerProjects(
@@ -124,5 +142,6 @@ export {
     processLogout,
     requireLogin,
     requireRole,
-    showDashboard
+    showDashboard,
+    showUsers
 };
