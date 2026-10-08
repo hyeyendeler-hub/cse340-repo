@@ -18,7 +18,13 @@
                     </article>
                 <% }) %>
             </div>
-            <p><a href="/assign-categories/<%= projectDetails.project_id %>">Edit Categories</a></p>
+            <% if (isLoggedIn && user && user.role_name === 'admin') { %>
+    <p>
+        <a href="/assign-categories/<%= projectDetails.project_id %>">
+            Edit Categories
+        </a>
+    </p>
+<% } %>
         </div>
 
                <div class="detail-section">
@@ -42,9 +48,15 @@
             <% } %>
         </div>
 
-        <div class="detail-section">
-            <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
-        </div>
+        <% if (isLoggedIn && user && user.role_name === 'admin') { %>
+    <div class="detail-section">
+        <p>
+            <a href="/edit-project/<%= projectDetails.project_id %>">
+                Edit Project
+            </a>
+        </p>
+    </div>
+<% } %>
     </article>
 </main>
 <%- include('partials/footer') %>

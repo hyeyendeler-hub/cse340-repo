@@ -24,7 +24,9 @@
             </div>
         </div>
         <div class="detail-section">
-            <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+            <% if (isLoggedIn && user && user.role_name === 'admin') { %>
+    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+<% } %>
         </div>
     </article>
 </main>

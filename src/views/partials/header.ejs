@@ -16,7 +16,7 @@
     <li><a href="/projects">Projects</a></li>
     <li><a href="/categories">Categories</a></li>
 
-   <% if (isLoggedIn && user && user.role_name === 'admin') { %>
+    <% if (isLoggedIn && user && user.role_name === 'admin') { %>
         <li><a href="/users">Users</a></li>
         <li><a href="/new-organization">New Organization</a></li>
         <li><a href="/new-project">New Project</a></li>
@@ -31,7 +31,6 @@
         <li><a href="/login">Login</a></li>
     <% } %>
 </ul>
-
     </nav>
     
       <% const messages = flash(); %>

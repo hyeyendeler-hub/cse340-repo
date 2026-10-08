@@ -122,12 +122,20 @@ router.post(
 router.get('/assign-categories/:projectId', requireRole('admin'), showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', requireRole('admin'), processAssignCategoriesForm);
 
-router.get('/edit-profile/:id', showEditOrganizationForm);
+
+router.get(
+    '/edit-profile/:id',
+    requireRole('admin'),
+    showEditOrganizationForm
+);
+
 router.post(
     '/edit-profile/:id',
+    requireRole('admin'),
     organizationValidation,
     processEditOrganizationForm
 );
+
 
 // User registration routes
 router.get('/register', showUserRegistrationForm);
@@ -149,13 +157,6 @@ router.get(
     '/remove-volunteer/:project_id',
     requireLogin,
     removeVolunteer
-);
-
-// Use the existing handler names and paths from your file.
-router.post(
-    '/existing-project-edit-path',
-    requireRole('admin'),
-    // ...existing validation and handlers...
 );
 
 // Apply the same middleware to existing category and category-assignment routes.

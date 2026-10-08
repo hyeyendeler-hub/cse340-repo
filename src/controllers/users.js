@@ -65,10 +65,11 @@ const processUserRegistrationForm = async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        await createUser({
-            ...req.body,
-            password: hashedPassword
-        });
+        await createUser(
+    req.body.name,
+    req.body.email,
+    hashedPassword
+);
 
         req.flash('success', 'Registration successful. Please log in.');
         res.redirect('/login');
